@@ -1,11 +1,5 @@
 let ugcData = [];
 
-// Get sprite URL dynamically
-function getUGCURL(id) {
-  return `https://mesh-online-assets.s3.us-east-2.amazonaws.com/uploadedAssets/ugc/objects/${id}.png`;
-}
-
-// Render gallery
 function renderGallery(items, containerId="ugcGrid") {
   const grid = document.getElementById(containerId);
   grid.innerHTML = "";
@@ -13,7 +7,7 @@ function renderGallery(items, containerId="ugcGrid") {
     const div = document.createElement("div");
     div.className = "ugc-card";
     div.innerHTML = `
-      <img src="${getUGCURL(item.id)}" style="width:${item.frameWidth}px;height:${item.frameHeight}px">
+      <img src="${item.sprite}" style="width:${item.frameWidth}px;height:${item.frameHeight}px">
       <div>${item.name}</div>
       <div>${item.creator}</div>
       <a href="ugc.html?ugc=${item.id}">View Sprite</a>
@@ -22,7 +16,6 @@ function renderGallery(items, containerId="ugcGrid") {
   });
 }
 
-// Setup search
 function setupSearch(inputId="searchInput", containerId="ugcGrid") {
   const input = document.getElementById(inputId);
   input.addEventListener("input", e => {
@@ -34,9 +27,8 @@ function setupSearch(inputId="searchInput", containerId="ugcGrid") {
   });
 }
 
-// Initialize gallery
 function initGallery(containerId="ugcGrid", searchId="searchInput") {
-  fetch("/data/ugc-index.json")
+  fetch("/api/ugc") // <-- fetches live UGC JSON
     .then(r => r.json())
     .then(data => {
       ugcData = data;
