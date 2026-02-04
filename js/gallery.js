@@ -28,12 +28,12 @@ function setupSearch(inputId="searchInput", containerId="ugcGrid") {
 }
 
 function initGallery(containerId="ugcGrid", searchId="searchInput") {
-  fetch("/api/ugc") // <-- fetches live UGC JSON
+  fetch("/api/ugc") // <-- Live API
     .then(r => r.json())
     .then(data => {
       ugcData = data;
       renderGallery(ugcData, containerId);
       setupSearch(searchId, containerId);
     })
-    .catch(err => console.error("Failed to load UGC JSON:", err));
+    .catch(err => console.error("Failed to load live UGC:", err));
 }
