@@ -20,7 +20,8 @@ body { background:#0b0d16; color:#fff; font-family:Arial; padding:20px; }
 const creator = new URLSearchParams(window.location.search).get("name") || "Unknown";
 document.getElementById("creatorTitle").textContent = `Creator: ${creator}`;
 
-fetch("/data/ugc-index.json")
+// Fetch live UGC
+fetch("/api/ugc")
   .then(r => r.json())
   .then(data => {
     const items = data.filter(item => item.creator === creator);
