@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UGC Sprite Viewer</title>
+<style>
+body { background:#0b0d16; color:#fff; display:flex; justify-content:center; align-items:center; height:100vh; }
+canvas { background:#111; border:1px solid #333; image-rendering: pixelated; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+
+const ugcId = new URLSearchParams(window.location.search).get("ugc");
+
+fetch("/data/ugc-index.json")
+  .then(r => r.json())
+  .then(index => {
+    const item = index.find(i => i.id === ugcId);
+    if (!item) return;
+
+    canvas.width = item.frameWidth;
+    canvas.height = item.frameHeight;
+
+    const img = new Image();
+    img.src = item.sprite;
+
+    img.onload = () => ctx.drawImage(img, 0, 0, item.frameWidth, item.frameHeight, 0, 0, item.frameWidth, item.frameHeight);
+  });
+</script>
+
+</body>
+</html>

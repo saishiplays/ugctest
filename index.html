@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pixels UGC Gallery</title>
+<style>
+body { background:#0b0d16; color:#fff; font-family:Arial; padding:20px; }
+#ugcGrid { display:grid; grid-template-columns:repeat(auto-fill,160px); gap:12px; }
+.ugc-card { background:#11152a; border-radius:10px; padding:8px; text-align:center; border:1px solid #1f2345; }
+.ugc-card img { image-rendering: pixelated; }
+input { width:100%; padding:10px; margin-bottom:12px; }
+</style>
+</head>
+<body>
+
+<h1>Pixels UGC Gallery</h1>
+<input id="searchInput" placeholder="Search UGC...">
+<div id="ugcGrid"></div>
+
+<script src="js/gallery.js"></script>
+<script>
+initGallery();
+</script>
+
+</body>
+</html>
